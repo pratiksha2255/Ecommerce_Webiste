@@ -2,6 +2,9 @@ import React from "react";
 import "./Signup.css";
 
 const Signup = () => {
+  function submitFunc() {
+    console.log("*************");
+  }
   return (
     <>
       <section
@@ -62,6 +65,7 @@ const Signup = () => {
                         <button
                           type="button"
                           className="btn gradient-custom-4 text-body"
+                          onClick={() => submitFunc()}
                         >
                           Register
                         </button>

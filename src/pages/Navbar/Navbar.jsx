@@ -24,8 +24,11 @@ function NavbarHeader() {
           <Link to="/" style={navLinkStyle}>
             Products
           </Link>
-          <Link to="/" style={navLinkStyle}>
+          <Link to="/about" style={navLinkStyle}>
             About Us
+          </Link>
+          <Link to="/contact" style={navLinkStyle}>
+            Contact Us
           </Link>
           <Link to="/signup" style={navLinkStyle}>
             Register
