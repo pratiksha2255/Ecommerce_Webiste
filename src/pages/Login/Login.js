@@ -19,8 +19,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
-  function login() {
     const { name, password } = formData;
     if (name === "" || password === "") {
       toast.error("Please enter details");
@@ -33,7 +31,8 @@ const Login = () => {
 
     localStorage.setItem("islogged", true);
     navigate("/");
-  }
+  };
+
   return (
     <>
       <ToastContainer />
@@ -79,7 +78,6 @@ const Login = () => {
                         <button
                           type="submit"
                           className="btn gradient-custom-4 text-body"
-                          onClick={login}
                         >
                           Login
                         </button>
