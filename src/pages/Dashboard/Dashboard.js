@@ -21,8 +21,8 @@ function Dashboard() {
     // localStorage.setItem("cart_items", JSON.stringify(cart_items));
   }
 
-  function viewProduct(id, product) {
-    navigate(`/productDetails/${id}`, { state: { product } });
+  function viewProduct(id) {
+    navigate(`/productDetails/${id}`);
   }
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function Dashboard() {
               <img
                 className="img"
                 src={product.thumbnail}
-                onClick={() => viewProduct(product.id, product)}
+                onClick={() => viewProduct(product.id)}
               />
               <br></br>
               <p>Price: ${product.price}</p>
