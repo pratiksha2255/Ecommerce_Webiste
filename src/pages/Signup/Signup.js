@@ -5,25 +5,13 @@ import { Link } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    submit();
-  };
-
-  async function submit() {
+  async function submit(e) {
     try {
-      const { name, email, password } = formData;
+      e.preventDefault();
 
       if (name === "" || email === "" || password === "") {
         toast.error("All fields are required");
@@ -39,16 +27,14 @@ const Signup = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          firstName: formData.name,
-          lastName: formData.email,
+          firstName: name,
+          lastName: email,
           age: 25,
         }),
       });
 
       const result = await response.json();
-      toast.success(
-        `Hi ${formData.name} . Your Details Submitted Successfully`
-      );
+      toast.success(`Hi ${name} . Your Details Submitted Successfully`);
     } catch (error) {
       toast.error("An error occurred while submitting data");
       console.error("Error:", error);
@@ -74,7 +60,7 @@ const Signup = () => {
                       Create an account
                     </h2>
 
-                    <form onSubmit={handleSubmit}>
+                    <form>
                       <div className="form-outline mb-4">
                         <input
                           type="text"
@@ -82,8 +68,8 @@ const Signup = () => {
                           className="form-control form-control-lg"
                           placeholder="Your Name"
                           name="name"
-                          value={formData.name}
-                          onChange={handleChange}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
 
@@ -94,8 +80,8 @@ const Signup = () => {
                           className="form-control form-control-lg"
                           placeholder="Your Email"
                           name="email"
-                          value={formData.email}
-                          onChange={handleChange}
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
 
@@ -106,8 +92,8 @@ const Signup = () => {
                           className="form-control form-control-lg"
                           placeholder="Password"
                           name="password"
-                          value={formData.password}
-                          onChange={handleChange}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>
 
