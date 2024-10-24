@@ -1,12 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = () => {
-  function submitFunc() {
-    console.log("*************");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit();
+  };
+
+  async function submit() {
+    try {
+      const { name, email, password } = formData;
+
+      if (name === "" || email === "" || password === "") {
+        toast.error("All fields are required");
+        return;
+      }
+
+      if (name.length < 5 || email.length < 5 || password.length < 5) {
+        toast.error("Minimum length of the characters is 5");
+        return;
+      }
+
+      const response = await fetch("https://dummyjson.com/users/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.name,
+          lastName: formData.email,
+          age: 25,
+        }),
+      });
+
+      const result = await response.json();
+      toast.success(
+        `Hi ${formData.name} . Your Details Submitted Successfully`
+      );
+    } catch (error) {
+      toast.error("An error occurred while submitting data");
+      console.error("Error:", error);
+    }
   }
   return (
     <>
+      <ToastContainer />
       <section
         className="vh-100 bg-image"
         style={{
@@ -24,58 +74,58 @@ const Signup = () => {
                       Create an account
                     </h2>
 
-                    <form>
-                      <div data-mdb-input-init className="form-outline mb-4">
+                    <form onSubmit={handleSubmit}>
+                      <div className="form-outline mb-4">
                         <input
                           type="text"
                           id="form3Example1cg"
                           className="form-control form-control-lg"
                           placeholder="Your Name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
                         />
                       </div>
 
-                      <div data-mdb-input-init className="form-outline mb-4">
+                      <div className="form-outline mb-4">
                         <input
                           type="email"
                           id="form3Example3cg"
                           className="form-control form-control-lg"
                           placeholder="Your Email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
                         />
                       </div>
 
-                      <div data-mdb-input-init className="form-outline mb-4">
+                      <div className="form-outline mb-4">
                         <input
                           type="password"
                           id="form3Example4cg"
                           className="form-control form-control-lg"
                           placeholder="Password"
-                        />
-                      </div>
-
-                      <div data-mdb-input-init className="form-outline mb-4">
-                        <input
-                          type="password"
-                          id="form3Example4cdg"
-                          className="form-control form-control-lg"
-                          placeholder="Repeat your password"
+                          name="password"
+                          value={formData.password}
+                          onChange={handleChange}
                         />
                       </div>
 
                       <div className="d-flex justify-content-center">
                         <button
-                          type="button"
+                          type="submit"
                           className="btn gradient-custom-4 text-body"
-                          onClick={() => submitFunc()}
+                          onClick={submit}
                         >
                           Register
                         </button>
                       </div>
 
                       <p className="text-center text-muted mt-5 mb-0">
-                        Have already an account?{" "}
-                        <a href="#!" className="fw-bold text-body">
+                        Already have an account?{" "}
+                        <Link to="/login" className="fw-bold text-body">
                           <u>Login here</u>
-                        </a>
+                        </Link>
                       </p>
                     </form>
                   </div>
