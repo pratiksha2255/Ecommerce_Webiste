@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  function login() {
+    const { name, password } = formData;
+    if (name === "" || password === "") {
+      toast.error("Please enter details");
+      return;
+    }
+    if (name.length < 5 || password.length < 5) {
+      toast.error("Credentials not valid");
+      return;
+    }
+
+    localStorage.setItem("islogged", true);
+    navigate("/");
+  }
   return (
     <>
+      <ToastContainer />
       <section
         className="vh-100 bg-image"
         style={{
@@ -19,13 +52,15 @@ const Login = () => {
                   <div className="card-body p-5">
                     <h2 className="text-uppercase text-center mb-5">Login</h2>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="text"
                           id="form3Example1cg"
                           className="form-control form-control-lg"
                           placeholder="Your Name"
+                          name="name"
+                          onChange={handleChange}
                         />
                       </div>
 
@@ -35,13 +70,16 @@ const Login = () => {
                           id="form3Example4cg"
                           className="form-control form-control-lg"
                           placeholder="Password"
+                          name="password"
+                          onChange={handleChange}
                         />
                       </div>
 
                       <div className="d-flex justify-content-center">
                         <button
-                          type="button"
+                          type="submit"
                           className="btn gradient-custom-4 text-body"
+                          onClick={login}
                         >
                           Login
                         </button>
@@ -49,9 +87,9 @@ const Login = () => {
 
                       <p className="text-center text-muted mt-5 mb-0">
                         Don't have an account?{" "}
-                        <a href="#!" className="fw-bold text-body">
+                        <Link to="/signup" className="fw-bold text-body">
                           <u>Create your account here</u>
-                        </a>
+                        </Link>
                       </p>
                     </form>
                   </div>

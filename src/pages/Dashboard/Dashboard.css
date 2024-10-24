@@ -48,7 +48,7 @@ h3 {
 }
 
 .btns {
-  background-color: #f1904a;
+  background-color: rgb(0 0 0);
   color: white;
   padding: 15px 30px;
   border: none;
@@ -58,7 +58,7 @@ h3 {
 }
 
 .btns:hover {
-  background-color: #f1904a;
+  background-color: rgb(0 0 0);
 }
 
 .viewbtn {

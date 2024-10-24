@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function NavbarHeader() {
   const navStyle = {
-    backgroundColor: "rgb(20 67 115)",
+    backgroundColor: "rgb(0 0 0)",
     padding: "20px",
   };
 

@@ -35,7 +35,7 @@ function Dashboard() {
 
   return (
     <>
-      <img src="/shopping.jpg" className="banner" alt="Shopping banner"></img>
+      <img src="/banner.webp" className="banner" alt="Shopping banner"></img>
       <div className="products-container ">
         {products.length > 0 ? (
           products.slice(0, 4).map((product) => (
